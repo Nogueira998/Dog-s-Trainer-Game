@@ -40,37 +40,76 @@ class Game {
         ]
     }
 
-//Embaralha o deck criando uma array aleatória e subindo cartas para os baralhos de jogador, CPU e Reserva.
+    //Embaralha o deck criando uma array aleatória e subindo cartas para os baralhos de jogador, CPU e Reserva.
     shuffle (){
+        
         const arrRandomNums = []
+        let arrResultShuffle = []
+
         while(arrRandomNums.length < this.originalDeck.length){
-            let varNum = Math.floor(Math.random()*33)
+            let varNum = Math.floor(Math.random() * this.originalDeck.length)
             if(arrRandomNums.indexOf(varNum) === -1){
                 arrRandomNums.push(varNum)
             }
         }
-        console.log(arrRandomNums)
+
         //Baralho inicial Jogador
         for (let i = 0 ; i < 16;i++){
             this.playerDeck.push(this.originalDeck[arrRandomNums[i]])
         }
+        arrResultShuffle.push(this.playerDeck)
+
         //Baralho inicial CPU
         for(let i = 16; i < 32; i++){
             this.cpuDeck.push(this.originalDeck[arrRandomNums[i]])
         }
+        arrResultShuffle.push(this.cpuDeck)
+
         //Baralho reserva inicial
         this.reserveDeck.push(this.originalDeck[arrRandomNums[32]])
-      console.log(this.playerDeck)
-      console.log(this.cpuDeck)
-      console.log(this.reserveDeck)
+        arrResultShuffle.push(this.reserveDeck)
+
+        return arrResultShuffle
+    }    
+}
+
+class Turn {
+    constructor(option, playerDeck,cpuDeck,reserveDeck){
+        this.option= option
+        this.playerDeck = playerDeck
+        this.cpuDeck = cpuDeck
+        this.reserveDeck = reserveDeck
+    }
+
+    checkWin () {
+        let brincarDif = this.playerDeck[0].brincar1 - this.cpuDeck[0].brincar2
+        let passearDif = this.playerDeck[0].passear1 - this.cpuDeck[0].passear2
+        let petiscoDif = this.playerDeck[0].petisco1 - this.cpuDeck[0].petisco2
+
+        if((this.option === 1 && brincarDif === 0)||(this.option === 2 && passearDif === 0)||(this.option === 3 && petiscoDif === 0)) {
+        //Empate
+            return "empatou"
+        } else if((this.option === 1 && brincarDif > 0)||(this.option === 2 && passearDif > 0)||(this.option === 3 && petiscoDif > 0)) {
+        //Jogador ganha
+            return "ganhou"
+        } else {
+        //CPU ganha
+            return "perdeu"
+        }
     }
 
 }
 
-let teste = new Game()
 
-teste.shuffle()
+const teste1 = new Game ()
+const shuffleEnd = teste1.shuffle()
 
+reserveDeck = shuffleEnd[2]
+playerDeck = shuffleEnd[0]
+cpuDeck = shuffleEnd[1]
 
+const teste2 = new Turn(1,playerDeck,cpuDeck,reserveDeck)
 
-
+console.log(playerDeck[0])
+console.log(cpuDeck[0])
+console.log(teste2.checkWin() +" " + playerDeck[0].brincar1 +" "+ cpuDeck[0].brincar2)
