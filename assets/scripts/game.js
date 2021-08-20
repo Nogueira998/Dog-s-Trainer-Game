@@ -81,35 +81,46 @@ class Turn {
         this.reserveDeck = reserveDeck
     }
 
+    //Verifica quem ganhou e aumenta seu baralho com as cartas jogadas, em caso de empate anterior leva as cartas reservas também
     checkWin () {
         let brincarDif = this.playerDeck[0].brincar1 - this.cpuDeck[0].brincar2
         let passearDif = this.playerDeck[0].passear1 - this.cpuDeck[0].passear2
         let petiscoDif = this.playerDeck[0].petisco1 - this.cpuDeck[0].petisco2
-
-        if((this.option === 1 && brincarDif === 0)||(this.option === 2 && passearDif === 0)||(this.option === 3 && petiscoDif === 0)) {
+        let arrResultTurn = []
+        
         //Empate
-            return "empatou"
-        } else if((this.option === 1 && brincarDif > 0)||(this.option === 2 && passearDif > 0)||(this.option === 3 && petiscoDif > 0)) {
+        if((this.option === 1 && brincarDif === 0)||(this.option === 2 && passearDif === 0)||(this.option === 3 && petiscoDif === 0)) {
+        this.reserveDeck.push(this.playerDeck[0])
+        this.reserveDeck.push(this.cpuDeck[0])
+        this.playerDeck.shift(this.playerDeck[0])
+        this.cpuDeck.shift(this.cpuDeck[0])
+        
         //Jogador ganha
-            return "ganhou"
-        } else {
-        //CPU ganha
-            return "perdeu"
+        } else if((this.option === 1 && brincarDif > 0)||(this.option === 2 && passearDif > 0)||(this.option === 3 && petiscoDif > 0)) {
+        this.playerDeck.push(this.playerDeck[0])
+        this.playerDeck.shift(this.playerDeck[0])
+        this.playerDeck.push(this.cpuDeck[0])
+        this.cpuDeck.shift(this.cpuDeck[0])
+        for(let i = 0 ; i < this.reserveDeck.length ; i++){
+        this.playerDeck.push(this.reserveDeck[i])
+        this.reserveDeck.shift(this.reserveDeck[i])
         }
-    }
 
+        //CPU ganha
+        } else {
+        this.cpuDeck.push(this.cpuDeck[0])
+        this.cpuDeck.shift(this.cpuDeck[0])
+        this.cpuDeck.push(this.playerDeck[0])
+        this.playerDeck.shift(this.playerDeck[0])
+        for(let i = 0 ; i < this.reserveDeck.length ; i++){
+        this.cpuDeck.push(this.reserveDeck[i])
+        this.reserveDeck.shift(this.reserveDeck[i])
+        }
+        }
+
+        arrResultTurn = [this.playerDeck,this.cpuDeck,this.reserveDeck]
+        return arrResultTurn
+    }
 }
 
 
-const teste1 = new Game ()
-const shuffleEnd = teste1.shuffle()
-
-reserveDeck = shuffleEnd[2]
-playerDeck = shuffleEnd[0]
-cpuDeck = shuffleEnd[1]
-
-const teste2 = new Turn(1,playerDeck,cpuDeck,reserveDeck)
-
-console.log(playerDeck[0])
-console.log(cpuDeck[0])
-console.log(teste2.checkWin() +" " + playerDeck[0].brincar1 +" "+ cpuDeck[0].brincar2)
