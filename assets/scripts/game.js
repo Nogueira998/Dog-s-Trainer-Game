@@ -94,6 +94,7 @@ class Turn {
         this.reserveDeck.push(this.cpuDeck[0])
         this.playerDeck.shift(this.playerDeck[0])
         this.cpuDeck.shift(this.cpuDeck[0])
+        this.imgResult = "./assets/images/draw.png"
         
         //Jogador ganha
         } else if((this.option === 1 && brincarDif > 0)||(this.option === 2 && passearDif > 0)||(this.option === 3 && petiscoDif > 0)) {
@@ -101,6 +102,8 @@ class Turn {
         this.playerDeck.shift(this.playerDeck[0])
         this.playerDeck.push(this.cpuDeck[0])
         this.cpuDeck.shift(this.cpuDeck[0])
+        this.imgResult = "./assets/images/good.png"
+
         for(let i = 0 ; i < this.reserveDeck.length ; i++){
         this.playerDeck.push(this.reserveDeck[i])
         this.reserveDeck.shift(this.reserveDeck[i])
@@ -112,15 +115,30 @@ class Turn {
         this.cpuDeck.shift(this.cpuDeck[0])
         this.cpuDeck.push(this.playerDeck[0])
         this.playerDeck.shift(this.playerDeck[0])
+        this.imgResult = "./assets/images/again.png"
+        
         for(let i = 0 ; i < this.reserveDeck.length ; i++){
         this.cpuDeck.push(this.reserveDeck[i])
         this.reserveDeck.shift(this.reserveDeck[i])
         }
         }
 
-        arrResultTurn = [this.playerDeck,this.cpuDeck,this.reserveDeck]
+        arrResultTurn = [this.playerDeck,this.cpuDeck,this.reserveDeck,this.imgResult]
         return arrResultTurn
     }
 }
 
+class Result {
+    constructor(playerDeck,cpuDeck){
+        this.playerDeck = playerDeck
+        this.cpuDeck = cpuDeck
+        this.result = []
+    }
 
+    updateScore (){
+        let playerPoints = Math.floor((this.playerDeck.length/(this.playerDeck.length + this.cpuDeck.length))*100)
+        let cpuPoints = Math.floor((this.cpuDeck.length/(this.playerDeck.length + this.cpuDeck.length))*100)
+        const newStyleWidth = [`${playerPoints}%`,`${cpuPoints}%`]
+        return newStyleWidth
+    }
+}
