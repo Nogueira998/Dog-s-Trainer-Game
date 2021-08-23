@@ -14,24 +14,25 @@
         <button id = "start">Começar</button>
     </div>
     <div class="secondScreen" style="display: none">
-        <div class="container d-flex flex-column justify-content-around">
+        <div class="container d-flex flex-column justify-content-center w-100">
             <div class="row">
-                <div class="col-1 p-0"><img class="d-inline-flex w-100 h-100" src="./assets/images/devil.png" alt="devil"></div>
+                <div class="col-1 p-0"><img class="w-100 h-100" src="./assets/images/devil.png" alt="devil"></div>
                 <div class="col-10 p-0 d-flex">
                     <div id="cpu-points" class="bg-danger text-center text-white-50 fs-1">50%</div>
                     <div id="player-points" class="bg-success text-center text-white-50 fs-1">50%</div>
                 </div>
-                <div class="col-1 p-0"><img class="d-inline-flex w-100 h-100" src="./assets/images/angel.png" alt="angel"></div>
+                <div class="col-1 p-0"><img class="w-100 h-100" src="./assets/images/angel.png" alt="angel"></div>
             </div>
             <div class="row">
-                <div class="col-4 p-0 d-flex"></div>
-                <div class="col-8 p-0 d-flex">
-                    <img class="img-dog" src="./assets/images/0.JPG" alt="base">
+                <div class="col-4 w-40 p-0 d-flex flex-column justify-content-end">
+                    <img class ="align-self-center img-fluid" src="./assets/images/player.png" alt="player">
                 </div>
-            </div>
-            <div class="row mb-3"> 
-                <div class="col-4"></div>
-                <div id="text" class="col-8 p-1 text-light bg-dark fs-2"></div>
+                <div class="col-8 w-80 d-flex flex-column p-0 justify-content-end">
+                    <div class="col-8 align-self-end">
+                        <img class="img-dog img-fluid" src="./assets/images/0.JPG" alt="base">
+                    </div>
+                    <div id="text" class="col-4 p-1 text-light bg-dark fs-2 w-100"></div>
+                </div>
             </div>
             <div class="row bg-warning bg-gradient">
                 <div class="col-4"><button id="btn-brincar" class="btn btn-link"><img class="img-fluid" src="./assets/images/btn-brincar.png" alt="brincar"></button></div>
@@ -42,12 +43,9 @@
         </div>
     </div>
     <div class="thirdScreen" style="display: none">
-        <img id = "result-img" src="./">
+        <img id = "result-img" class="img-fluid" src="./">
         <button id = "OK">OK</button>
     </div>
-
-
-
     <script src="./assets/scripts/game.js"></script>
     <script src="./assets/scripts/index.js"></script>
 </body>

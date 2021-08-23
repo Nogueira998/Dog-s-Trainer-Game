@@ -2,11 +2,11 @@ const btnStartElement = document.getElementById("start");
 const firstScreenElement = document.querySelector(".firstScreen");
 const secondScreenElement = document.querySelector(".secondScreen");
 const thirdScreenElement = document.querySelector(".thirdScreen");
-const textElement = document.getElementById("text")
 const textBloqElement = document.getElementById("text-bloq")
 const btnBrincarElement = document.getElementById("btn-brincar")
 const btnPassearElement = document.getElementById("btn-passear")
 const btnPetiscoElement = document.getElementById("btn-petisco")
+const imgDogElement = document.querySelector(".img-dog")
 const imgResultElement = document.querySelector("#result-img")
 const okElement = document.getElementById("OK")
 let gameOver = false
@@ -16,13 +16,14 @@ const shuffle = game.shuffle()
 let deckPlayer = shuffle[0]
 let cpuDeck = shuffle[1]
 let reserveDeck = shuffle[2]
+
 window.alert("Esse cachorro é muito arteiro e você precisa ensinar a ele bons modos. Para isso, escolha uma das atividades disponíveis para evitar que ele faça algo errado. Boa sorte treinador!!!")
 
 //Próxima tela
 btnStartElement.addEventListener("click", function() {
   if(firstScreenElement.style.display === "flex") {
     firstScreenElement.style.display = "none";
-    secondScreenElement.style.display = "flex"   
+    secondScreenElement.style.display = "flex"
     play()
   } else {
     firstScreenElement.style.display = "flex";
@@ -76,6 +77,7 @@ function play(){
 
     //Atualiza tela
     document.getElementById("text").innerText = deckPlayer[0].texto
+    imgDogElement.setAttribute('src', deckPlayer[0].img) 
     const point = new Result(deckPlayer,cpuDeck)
     const score = point.updateScore()
     document.getElementById('player-points').style.width = score[0]
