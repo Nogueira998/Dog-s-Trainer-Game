@@ -1,16 +1,31 @@
-const btnStartElement = document.getElementById("start");
+//Telas
 const firstScreenElement = document.querySelector(".firstScreen");
 const secondScreenElement = document.querySelector(".secondScreen");
 const thirdScreenElement = document.querySelector(".thirdScreen");
-const textBloqElement = document.getElementById("text-bloq")
+
+//Botões
+const btnStartElement = document.getElementById("start");
 const btnBrincarElement = document.getElementById("btn-brincar")
 const btnPassearElement = document.getElementById("btn-passear")
 const btnPetiscoElement = document.getElementById("btn-petisco")
+const okElement = document.getElementById("OK")
+
+//Imagens
 const imgDogElement = document.querySelector(".img-dog")
 const imgResultElement = document.querySelector("#result-img")
-const okElement = document.getElementById("OK")
-let gameOver = false
 
+//Textos
+const textElement = document.getElementById("text")
+const textBloqElement = document.getElementById("text-bloq")
+
+//Audio
+const audioElement = document.querySelector("audio")
+audioElement.loop = true
+audioElement.autoplay = true
+audioElement.load()
+
+//Pepara o baralho e inicia um novo jogo
+let gameOver = false
 const game = new Game ()
 const shuffle = game.shuffle()
 let deckPlayer = shuffle[0]
@@ -22,11 +37,13 @@ window.alert("Esse cachorro é muito arteiro e você precisa ensinar a ele bons 
 //Próxima tela
 btnStartElement.addEventListener("click", function() {
   if(firstScreenElement.style.display === "flex") {
-    firstScreenElement.style.display = "none";
+    firstScreenElement.style.display = "none"
     secondScreenElement.style.display = "flex"
+    changeAudio("./assets/sounds/Cute Avalanche - RKVC.mp3") 
     play()
   } else {
-    firstScreenElement.style.display = "flex";
+    firstScreenElement.style.display = "flex"
+    changeAudio("./assets/sounds/My Dog Is Happy - Reed Mathis.mp3") 
   }
 });
 
@@ -76,28 +93,27 @@ function play(){
     }
 
     //Atualiza tela
-    document.getElementById("text").innerText = deckPlayer[0].texto
+    textElement.innerText = deckPlayer[0].texto
     imgDogElement.setAttribute('src', deckPlayer[0].img) 
+    //Pontuação
     const point = new Result(deckPlayer,cpuDeck)
-    const score = point.updateScore()
+    const score = point.updateScore()  
     document.getElementById('player-points').style.width = score[0]
     document.getElementById('cpu-points').style.width = score[1]
     document.getElementById('player-points').innerText = score[0]
     document.getElementById('cpu-points').innerText = score[1]
-
-    console.log(deckPlayer[0].brincar1 - cpuDeck[0].brincar2)
-    console.log(deckPlayer[0].passear1 - cpuDeck[0].passear2)
-    console.log(deckPlayer[0].petisco1 - cpuDeck[0].petisco2)
-    
 }
 
+//Verificar se o jogo acabou
 function gameOverCheck () {
     if(deckPlayer.length<=0){
+        changeAudio("./assets/sounds/Male Dramatic Crying.mp3")
         imgResultElement.setAttribute("src","./assets/images/gameover.png")
         secondScreenElement.style.display = "none"
         thirdScreenElement.style.display = "flex"
         gameOver = true
     } else if(cpuDeck.length<=0){
+        changeAudio("./assets/sounds/Female Crowd Celebration.mp3")
         imgResultElement.setAttribute("src","./assets/images/win.png")
         secondScreenElement.style.display = "none"
         thirdScreenElement.style.display = "flex"
@@ -105,10 +121,9 @@ function gameOverCheck () {
     }
 }
 
-
 //Retorna jogo depois de mensagem
 okElement.addEventListener("click", function() {
-    thirdScreenElement.style.display = "none";
+    thirdScreenElement.style.display = "none"
     if(gameOver === true){
         firstScreenElement.style.display = "flex"
         btnStartElement.innerText="Recomeçar"
@@ -122,8 +137,7 @@ okElement.addEventListener("click", function() {
     }
   });
 
-let contador = 0
-
+//Prepara uma nova jogada depois de apertar o botão
 function btnGo(option){
     const turn = new Turn(option,deckPlayer,cpuDeck,reserveDeck)
     const result = turn.checkWin()
@@ -137,12 +151,8 @@ function btnGo(option){
     gameOverCheck()
 }
 
-
-
-
-
-
-
-  
-
-
+//Altera audio
+function changeAudio(url){
+    audioElement.setAttribute("src",url)
+    audioElement.load()
+}
