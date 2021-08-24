@@ -147,7 +147,6 @@ function btnGo(option){
     imgResultElement.setAttribute("src",result[3])
     secondScreenElement.style.display = "none"
     thirdScreenElement.style.display = "flex"
-    console.log(gameOver)
     gameOverCheck()
 }
 
