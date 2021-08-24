@@ -20,7 +20,7 @@ Just follow the link: https://nogueira998.github.io/Dog-s-Trainer-Game/
 This game-project it is part of the first week of the Full Stack IronHack bootcamp, where in 5 days we apply what was learned regarding HTML, Javascript, CSS and DOM.
 
 ## Technologies used
-HTML / CSS / JS / DOM
+HTML / CSS / JS / DOM / Bootstrap
 
 ## Autor
 
