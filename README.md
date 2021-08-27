@@ -22,6 +22,10 @@ This game-project it is part of the first week of the Full Stack IronHack bootca
 ## Technologies used
 HTML / CSS / JS / DOM / Bootstrap
 
+## More about
+
+Link (pt-br) https://docs.google.com/presentation/d/1fvNb1pwGtJN5xhmbfoZiYOm8x4B1jlh5qSlRyextFfM/edit?usp=sharing
+
 ## Autor
 
 Caio Nogueira
